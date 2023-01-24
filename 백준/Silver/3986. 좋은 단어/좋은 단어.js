@@ -12,11 +12,10 @@ for (let s of input) {
   if (s.length % 2 === 1) continue;
 
   let stack = [];
-
   for (let c of s) {
     if (stack.length === 0 || stack.at(-1) !== c) {
       stack.push(c);
-    } else if (stack.at(-1) === c) {
+    } else {
       stack.pop();
     }
   }
