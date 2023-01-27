@@ -1,30 +1,30 @@
-const list = require('fs')
+const input = require('fs')
   .readFileSync('dev/stdin')
   .toString()
   .trim()
-  .split('\n')
-  .slice(1)
-  .map(v => v.trim());
+  .split('\n');
 
-let obj = {};
-let result = [];
+const N = +input[0];
+const players = input.slice(1);
+const counter = {};
 
 for (let i = 0; i < 26; i++) {
-  let key = String.fromCharCode(i + 97);
-  obj[key] = 0;
+  const key = String.fromCharCode(i + 97);
+  counter[key] = 0;
 }
 
-for (let name of list) {
-  let key = name[0];
-  obj[key]++;
+for (let player of players) {
+  const key = player[0];
+  counter[key]++;
 }
 
-for (let [name, count] of Object.entries(obj)) {
-  if (count >= 5) {
-    result.push(name);
-  }
-}
+const resultArray = Object.entries(counter).filter(
+  ([key, value]) => value >= 5
+);
 
-result = result.length > 0 ? result.sort().join('') : 'PREDAJA';
+const result =
+  resultArray.length > 0
+    ? resultArray.reduce((acc, [key, value]) => acc + key, '')
+    : 'PREDAJA';
 
 console.log(result);
