@@ -1,31 +1,28 @@
-const arr = require('fs')
+const input = require('fs')
   .readFileSync('dev/stdin')
   .toString()
   .trim()
   .split('\n')
   .map(v => +v);
 
-function printResult(arr) {
-  for (let value of arr) {
-    console.log(value);
-  }
-}
+const total = input.reduce((acc, v) => acc + v, 0);
+const target = total - 100;
 
-function combination(start, b, r) {
-  if (b.length === r) {
-    if (b.reduce((acc, v) => acc + v, 0) === 100) {
-      b.sort((x, y) => x - y);
-      printResult(b);
-      process.exit(0);
+function solution() {
+  for (let i = 0; i < input.length; i++) {
+    for (let j = i + 1; j < input.length; j++) {
+      if (input[i] + input[j] === target) {
+        const idxArray = [i, j];
+        return input
+          .filter((value, index) => !idxArray.includes(index))
+          .sort((a, b) => a - b);
+      }
     }
-    return;
-  }
-
-  for (let i = start + 1; i < arr.length; i++) {
-    b.push(arr[i]);
-    combination(i, b, r);
-    b.pop();
   }
 }
 
-combination(-1, [], 7);
+const result = solution();
+
+for (let value of result) {
+  console.log(value);
+}
