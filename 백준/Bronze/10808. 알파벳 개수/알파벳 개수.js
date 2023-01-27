@@ -1,14 +1,16 @@
-const s = require('fs').readFileSync('dev/stdin').toString().trim();
+const input = require('fs').readFileSync('dev/stdin').toString().trim();
 
-let cnt = {};
+const count = {};
 
 for (let i = 0; i < 26; i++) {
-  let key = String.fromCharCode(i + 97);
-  cnt[key] = 0;
+  const key = String.fromCharCode(i + 97);
+  count[key] = 0;
 }
 
-for (let c of s) {
-  cnt[c]++;
+for (let char of input) {
+  count[char]++;
 }
 
-console.log(Object.values(cnt).join(' '));
+const countArray = Object.values(count);
+
+console.log(countArray.join(' '));
