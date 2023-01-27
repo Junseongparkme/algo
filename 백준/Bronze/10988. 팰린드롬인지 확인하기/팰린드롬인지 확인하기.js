@@ -1,11 +1,11 @@
-const s = require('fs').readFileSync('dev/stdin').toString().trim();
-const reversed = Array.from(s).reverse();
+const input = require('fs').readFileSync('dev/stdin').toString().trim();
 
-for (let i = 0; i < s.length; i++) {
-  if (s[i] !== reversed[i]) {
-    console.log(0);
-    process.exit(0);
+function solution(s) {
+  for (let i = 0; i < s.length; i++) {
+    if (s.at(i) !== s.at(-i - 1)) return 0;
   }
+  return 1;
 }
 
-console.log(1);
+const result = solution(input);
+console.log(result);
