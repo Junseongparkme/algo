@@ -5,17 +5,26 @@ const input = require('fs')
   .split('\n')
   .map(v => v.trim());
 
-const [n, m] = input[0].split(' ').map(v => +v);
-const list = input.slice(1, n + 1);
-const query = input.slice(n + 1);
+const [N, M] = input[0].split(' ').map(v => +v);
+const list = input.slice(1, 1 + N);
+const query = input.slice(1 + N);
 
-let map = new Map();
+const str_num = {};
+const num_str = {};
 
-for (let i = 1; i <= list.length; i++) {
-  map.set(list[i - 1], i);
+for (let i = 0; i < N; i++) {
+  const str = list[i];
+
+  str_num[str] = i + 1;
+  num_str[i + 1] = str;
 }
 
 for (let value of query) {
-  let result = isFinite(value) ? list[value - 1] : map.get(value);
+  let result = '';
+  if (isFinite(value)) {
+    result = num_str[value];
+  } else {
+    result = str_num[value];
+  }
   console.log(result);
 }
