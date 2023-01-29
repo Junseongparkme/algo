@@ -2,21 +2,21 @@ const input = require('fs')
   .readFileSync('dev/stdin')
   .toString()
   .trim()
-  .split('\n')
-  .map(v => v.trim());
+  .split('\n');
 
-const [n, m] = input[0].split(' ').map(v => +v);
-const board = input.slice(1).map(v => Array.from(v).map(v => +v));
-const visited = [];
+const [N, M] = input[0].split(' ').map(v => +v);
+const board = input.slice(1).map(v => v.split('').map(v => +v));
+
 const dy = [-1, 0, 1, 0];
 const dx = [0, 1, 0, -1];
 
-for (let i = 0; i < n; i++) {
-  let sub = [];
-  for (let j = 0; j < m; j++) {
-    sub.push(0);
+const visited = [];
+for (let i = 0; i < N; i++) {
+  let row = [];
+  for (let j = 0; j < M; j++) {
+    row.push(0);
   }
-  visited.push(sub);
+  visited.push(row);
 }
 
 function bfs(y, x) {
@@ -27,7 +27,7 @@ function bfs(y, x) {
     for (let i = 0; i < 4; i++) {
       let ny = y + dy[i];
       let nx = x + dx[i];
-      if (!(0 <= ny && ny < n && 0 <= nx && nx < m)) continue;
+      if (!(0 <= ny && ny < N && 0 <= nx && nx < M)) continue;
       if (visited[ny][nx]) continue;
       if (board[ny][nx] === 0) continue;
       visited[ny][nx] = visited[y][x] + 1;
@@ -37,4 +37,4 @@ function bfs(y, x) {
 }
 
 bfs(0, 0);
-console.log(visited[n - 1][m - 1]);
+console.log(visited[N - 1][M - 1]);
